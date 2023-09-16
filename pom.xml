@@ -9,6 +9,17 @@
         <project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
+    <scm>
+        <url>https://github.com/pkk82/ci_gha-java-lib-to-ghp-mvn-release-plugin</url>
+        <!-- Bitbucket clones project using http -->
+        <developerConnection>
+            scm:git:https://github.com/pkk82/ci_gha-java-lib-to-ghp-mvn-release-plugin.git
+        </developerConnection>
+        <connection>
+            scm:git:https://github.com/pkk82/ci_gha-java-lib-to-ghp-mvn-release-plugin.git
+        </connection>
+        <tag>HEAD</tag>
+    </scm>
     <build>
         <pluginManagement>
             <plugins>
@@ -25,6 +36,11 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M5</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
                     <version>3.0.0-M5</version>
                 </plugin>
             </plugins>
@@ -56,6 +72,16 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <scmCommentPrefix>[skip ci][maven-release-plugin]${line.separator}</scmCommentPrefix>
+                    <!-- use local checkout to perform the release -->
+                    <localCheckout>true</localCheckout>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -78,5 +104,10 @@
             <name>GitHub Packages</name>
             <url>https://maven.pkg.github.com/pkk82/ci_gha-java-lib-to-ghp-mvn-release-plugin</url>
         </snapshotRepository>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/pkk82/ci_gha-java-lib-to-ghp-mvn-release-plugin</url>
+        </repository>
     </distributionManagement>
 </project>
